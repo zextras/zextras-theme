@@ -301,5 +301,3 @@ ZmSkin.prototype = {
 //  create an instance as "skin" -- some skins may create another one that overrides this
 //
 window.skin = new ZmSkin();
-
-console.log("Transitional Init");
