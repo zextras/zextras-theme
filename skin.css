@@ -474,11 +474,11 @@ BODY                                    {   margin:0px;     }
     display: none;
 }
 
-.DwtMenu.ZHasCheck.ZHasIcon .ZMenuItem:not(.ZHasCheck):not(.ZHasLeftIcon) .ZMenuItemTable .ZWidgetIcon:empty::after,
+/*.DwtMenu.ZHasCheck.ZHasIcon .ZMenuItem:not(.ZHasCheck):not(.ZHasLeftIcon) .ZMenuItemTable .ZWidgetIcon:empty::after,
 .DwtMenu.ZHasCheck.ZHasIcon .ZMenuItem.ZHasCheck .ZMenuItemTable .ZCheckIcon:empty::after {
-    content: " "; 
+    content: " ";
     padding-left: @IconGutterSize@;
-}
+}*/
 
 .DwtMenu.ZHasCheck.ZHasIcon .ZMenuItem:not(.ZHasCheck):not(.ZHasLeftIcon) .ZMenuItemTable .ZWidgetIcon:empty,
 .DwtMenu.ZHasCheck.ZHasIcon .ZMenuItem.ZHasCheck .ZMenuItemTable .ZCheckIcon:empty {
@@ -487,7 +487,7 @@ BODY                                    {   margin:0px;     }
 
 /* Case: When menu has only `hasCheck` class */
 .DwtMenu.ZHasCheck:not(.ZHasIcon) .ZMenuItem .ZMenuItemTable .ZCheckIcon:empty::after {
-    content: " "; 
+    content: " ";
     padding-left: @IconGutterSize@;
 }
 
@@ -501,7 +501,7 @@ BODY                                    {   margin:0px;     }
 
 /* Case: When menu has only `hasIcon` class */
 .DwtMenu.ZHasIcon:not(.ZHasCheck) .ZMenuItem .ZMenuItemTable .ZLeftIcon:empty::after {
-    content: " "; 
+    content: " ";
     padding-left: @IconGutterSize@;
 }
 
@@ -514,7 +514,7 @@ BODY                                    {   margin:0px;     }
 }
 
 /* Hide CheckIcon for menus */
-.DwtMenu.ZHideCheckIconMenuType .ZCheckIcon { 
+.DwtMenu.ZHideCheckIconMenuType .ZCheckIcon {
     display: none;
 }
 
@@ -662,7 +662,7 @@ SELECT                      {   @NativeSelect@  }
 .TopRow, .MiddleRow, .BottomRow     { height:16px; height:1.6rem; position:relative;    }
 .TopRow .ImgNodeCollapsed,
 .TopRow .ImgNodeExpanded            { padding:0px; }
-.ZmMsgListDate                      { position:absolute; right:0px; text-align:right; width:75px; width:6.8rem;}
+.ZmMsgListDate                      { position:absolute; right:0px; text-align:right; width:90px; width:7.5rem;}
 .ZmListFlagsWrapper                 { position:absolute; right:0px; @ListItemContainer-normal@  }
 .BottomRow .ZmListFlagsWrapper > div > div {  padding: 0 5px;  }
 .BottomRow .ZmListFlagsWrapper > div:last-child > div { padding-right: 0; }
@@ -726,7 +726,7 @@ SELECT                      {   @NativeSelect@  }
 Ideally we should not apply ImgBlank_16 icon to elements, but we are doing it from many places so instead of changing that
 we are hiding element with that class
 */
-.DwtShell .ImgBlank_16              { display:none;     }
+/*.DwtShell .ImgBlank_16              { display:none;     }*/
 
 /*
  * TinyMCE customizations
@@ -1019,8 +1019,9 @@ div.ImgLoader-view {
 /* For end-to-end hover effect in tree for nested elements  */
 .DwtTreeItem,
 .DwtTreeItemLevel1ChildDiv .horizSep  {
-    padding-left: 100%;
-    margin-left: -100%;
+    padding-left: 0;
+    /*padding-left: 100%;
+    margin-left: -100%;*/
 }
 
 .DwtDragProxy .DwtTreeItem {
