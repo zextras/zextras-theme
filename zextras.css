@@ -36,6 +36,10 @@ body{
 	outline-width: 0px !important;
 	box-shadow: none;
 }
+hr{
+	border-style: solid;
+	border-color: #e9e9e9;
+}
 #skin_tr_search_results_toolbar{
 	height: 45px;
 }
@@ -85,6 +89,20 @@ body{
 }
 .DwtButtonColorPicker-display{
 	border-color: transparent;
+}
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(0,0,0,0.15);
+	border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-track{
+	 background: rgba(0,0,0,0.02);
 }
 
 /* HEADER */
@@ -143,9 +161,15 @@ body{
 #CHECK_MAIL_left_icon div{
 	opacity: 0;
 }
-.ZmAppChooser{
+.ZmAppChooser {
 	margin-top: 0;
 }
+#IFDEF SAFARI
+.ZmAppChooser{
+	overflow-x: auto !important;
+	overflow-x: overlay !important;
+}
+#ENDIF
 [id$="KEEP_READING_left_icon"]{
 	display: none;
 }
@@ -175,8 +199,79 @@ body{
 #skin_container_search .ZButton{
 	border-right: none;
 }
+#skin_container_search .ZmSearchToolbar{
+	overflow: hidden !important;
+}
+.search_input,
 .search_input-expanded{
 	width: 250px;
+}
+#skin_spacing_search{
+	position: relative;
+	min-width: 30px;
+}
+#skin_container_search{
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	padding: 10px 0;
+	background-color: @PrimaryBrandingColor@;
+}
+#skin_spacing_search .search-trigger{
+	position: absolute;
+	top: 0;
+	right: 0;
+	@SearchIcon@
+	@BgImageProps@
+	width: 20px;
+	padding: 0 10px;
+}
+#skin_spacing_search.active .search-close{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	@CancelIconWhite@
+	@BgImageProps@
+	background-size: 20px;
+	width: 40px;
+	padding: 0 10px;
+	@transform@: translateX(-99%);
+	background-color: @PrimaryBrandingColor@;
+	box-shadow: -10px -4px 12px -4px rgba(0,0,0,0.2);
+}
+#skin_spacing_search.active .search-trigger,
+#skin_spacing_search .search-close{
+	display: none;
+}
+#skin_spacing_search .search-trigger,
+#skin_spacing_search .search-close{
+	cursor: pointer;
+}
+#skin_spacing_search #ztb_search{
+	position: relative !important;
+	width: 0;
+}
+
+#skin_spacing_search.active #ztb_search{
+	width: 100%;
+}
+#skin_spacing_search .search-loader{
+	position: absolute;
+	top: 0;
+	left: -60px;
+	width: 135%;
+	height: 100%;
+	background-color: @PrimaryBrandingColor@;
+	transition: width 0.2s ease-out;
+	z-index: 301;
+	opacity: 0;
+	pointer-events: none;
+}
+#skin_spacing_search.active .search-loader{
+	opacity: 1;
+	width: 0;
 }
 .ZmSearchResultsToolBar .addrBubbleHolder{
 	max-height: 2.6rem;
@@ -217,12 +312,12 @@ body{
 	position: static !important;
 }
 .addrBubbleHolder {
-	max-height: 35px;
+	min-height: 28px;
+	max-height: 135px;
 	@DisplayFlex@
 	@AlignItemsCenter@
 	@FlexWrap@
 }
-
 .addrBubbleContainer, .attBubbleContainer{
 	min-height: 29px;
 	/*margin-top: 4px;*/
@@ -240,10 +335,26 @@ body{
 .ZmSizeSearchFilterCombobox .DwtLabel .ZWidgetTitle{
 	padding: 0 5px 0 0;
 }
+.acRow td{
+	height: auto;
+	line-height: 1rem;
+}
+.acRow,
+.acRow-selected{
+	height: 2.5rem;
+}
+.ZmAutocompleteListView .LinkText{
+	color: @PrimaryBrandingColor@;
+}
 
 /* UNDER HEADER */
 #skin_container_app_new_button{
 	padding: 0 8px;
+	width: 100%;
+}
+#zb__NEW_MENU{
+	margin-top: 7px;
+	margin-bottom: 7px;
 }
 #ztb__NEW_MENU .ZToolbarButtonTable{
 	padding: 0 !important;
@@ -255,7 +366,6 @@ body{
 	height: 100%;
 }
 .ZNewButton .ZToolbarButtonTable {
-	margin: 7px 0;
 	border-radius: 4px;
 	overflow: hidden;
 }
@@ -322,7 +432,10 @@ body{
 .DwtShell > .ZToolbar [id$="__REPLY_ALL_left_icon"]{ @ReplyAllIcon@ }
 .DwtShell > .ZToolbar [id$="__FORWARD_left_icon"]{ @ForwardIcon@ }
 .DwtShell > .ZToolbar [id$="__ARCHIVE_left_icon"]{ @ArchiveIcon@ }
-.DwtShell > .ZToolbar [id$="__DELETE_left_icon"]{ @DeleteIcon@ }
+.DwtShell > .ZToolbar [id$="__DELETE_left_icon"],
+.DwtShell > .ZToolbar [id^="zb__CLD__DELETE"][id$="_left_icon"]{
+	@DeleteIcon@
+}
 .DwtShell > .ZToolbar [id$="__SPAM_left_icon"]{ @SpamIcon@ }
 .DwtShell > .ZToolbar [id$="__MOVE_MENU_left_icon"]{ @MoveIcon@ }
 .DwtShell > .ZToolbar [id$="__TAG_MENU_left_icon"]{ @TagIcon@ }
@@ -337,17 +450,27 @@ body{
 	background-size: contain;
 	background-position: center center;
 }
-#ztb__TKL-main_items > td:first-child .ZLeftIcon{ @EditBlueIcon@ }
-#ztb__TKL-main_items > td:nth-child(3) .ZLeftIcon{ @DeleteIcon@ }
 #ztb__TKL-main_items > td:first-child .ZLeftIcon,
-#ztb__TKL-main_items > td:nth-child(3) .ZLeftIcon{
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:first-child .ZLeftIcon{
+	@EditBlueIcon@
+}
+#ztb__TKL-main_items > td:nth-child(3) .ZLeftIcon,
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:nth-child(3) .ZLeftIcon{
+	@DeleteIcon@
+}
+#ztb__TKL-main_items > td:first-child .ZLeftIcon,
+#ztb__TKL-main_items > td:nth-child(3) .ZLeftIcon,
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:first-child .ZLeftIcon,
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:nth-child(3) .ZLeftIcon{
 	padding: 0 8px;
 	background-size: contain;
 	background-position: center center;
 }
 #z_shell > .ZToolbar > .ZToolbarTable .ZWidgetTable .ZWidgetTitle:not(:empty),
 #ztb__TKL-main_items > td:first-child .ZWidgetTitle:not(:empty),
-#ztb__TKL-main_items > td:nth-child(3) .ZWidgetTitle:not(:empty){
+#ztb__TKL-main_items > td:nth-child(3) .ZWidgetTitle:not(:empty),
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:first-child .ZWidgetTitle:not(:empty),
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:nth-child(3) .ZWidgetTitle:not(:empty){
 	padding: 0 6px;
 }
 #z_shell>.ZToolbar>.ZToolbarTable [id$="_items"] .ZDisabled .ZWidgetTable .ZLeftIcon{
@@ -600,7 +723,7 @@ body{
 .ImgPersonInline_48{ @ImgPersonInline_48@ @BgImageProps@ }
 .ImgApptRecur{ @ImgApptRecur@ @BgImageProps@ }
 .ImgApptExceptionIndicator{ @ImgApptExceptionIndicator@ @BgImageProps@ }
-.ImgPerson, .ImgAttendeesRequired{ @ImgPerson@ @BgImageProps@ }
+.ImgPerson{ @ImgPerson@ @BgImageProps@ }
 .ImgGALContact{ @ImgGALContact@ @BgImageProps@ }
 .ImgTaskViewNotStarted{ @ImgTaskViewNotStarted@ @BgImageProps@ }
 .ImgTaskViewCompleted{ @ImgTaskViewCompleted@ @BgImageProps@ }
@@ -685,6 +808,27 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ImgMsgStatusRedirect{ @ImgMsgStatusRedirect@ @BgImageProps@ }
 .ImgMsgStatusReply{ @ImgMsgStatusReply@ @BgImageProps@ }
 .ImgMsgStatusSent{ @ImgMsgStatusSent@ @BgImageProps@ }
+.ImgDate{ @ImgDate@ @BgImageProps@ }
+.ImgDayView{ @ImgDayView@ @BgImageProps@ }
+.ImgWorkWeekView{ @ImgWorkWeekView@ @BgImageProps@ }
+.ImgWeekView{ @ImgWeekView@ @BgImageProps@ }
+.ImgMonthView{ @ImgMonthView@ @BgImageProps@ }
+.ImgCalListView{ @ImgCalListView@ @BgImageProps@ }
+.ImgAttendeesRequired{ @ImgAttendeesRequired@ @BgImageProps@ }
+.ImgGroupSchedule{ @ImgGroupSchedule@ @BgImageProps@ }
+.ImgAttendeesOptional{ @ImgAttendeesOptional@ @BgImageProps@ }
+.ImgLocation{ @ImgLocation@ @BgImageProps@ }
+.ImgResource{ @ImgResource@ @BgImageProps@ }
+.ImgNeedsAction{ @ImgNeedsAction@ @BgImageProps@ }
+.ImgQuestionMark{ @ImgQuestionMark@ @BgImageProps@ }
+.ImgUpArrowSmall{ @ImgUpArrowSmall@ @BgImageProps@ width: 12px !important; height: 12px !important; }
+.ImgDownArrowSmall{ @ImgDownArrowSmall@ @BgImageProps@ width: 12px !important; height: 12px !important; }
+.ImgProposeTime{ @ImgProposeTime@ @BgImageProps@ }
+.ImgTagShared{ @ImgTagShared@ @BgImageProps@ }
+.ImgCalInviteTentative{ @ImgCalInviteTentative@ @BgImageProps@ }
+.ImgCalInviteAccepted{ @ImgCalInviteAccepted@ @BgImageProps@ }
+.ImgCalInviteDeclined{ @ImgCalInviteDeclined@ @BgImageProps@ }
+.ImgReadOnly{ @ImgReadOnly@ @BgImageProps@ }
 
 .ImgPriorityHigh_list{
 	@RedUpArrow@
@@ -743,11 +887,11 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	@ArrowRight@
 	background-size: 20px;
 }
-#ztb__CAL__Nav .ImgLeftArrow{
+.ZmNavToolbar[id^="ztb__CAL__Nav"] .ImgLeftArrow{
 	@ArrowLeftBlue@
 	background-size: 20px;
 }
-#ztb__CAL__Nav .ImgRightArrow{
+.ZmNavToolbar[id^="ztb__CAL__Nav"] .ImgRightArrow{
 	@ArrowRightBlue@
 	background-size: 20px;
 }
@@ -839,17 +983,20 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.DwtListView-Rows > li:hover,
-.DwtListView-Rows > li:hover .ZmListFlagsWrapper,
-.DwtListView-Rows > li:hover .ZmMsgListDate{
+.DwtListView-Rows > li:hover{
 	background: rgb(241, 247, 255);
 }
 .DwtListView-Rows > li.Row-selected,
 .DwtListView-Rows > li.Row-selected-disabled,
 .DwtListView-Rows > li.Row-selected-dragProxy,
-.DwtListView-Rows > li.Row-selected .ZmListFlagsWrapper,
-.DwtListView-Rows > li.Row-selected-disabled .ZmListFlagsWrapper,
-.DwtListView-Rows > li.Row-selected-dragProxy .ZmListFlagsWrapper,
+.RowDouble-dragProxy{
+	background: rgb(213, 227, 246) !important;
+}
+.Row-altSelected{
+	background: #f2f2f2 !important;
+}
+.Row-altSelected .ZmListFlagsWrapper,
+.Row-altSelected .ZmMsgListDate,
 .DwtListView-Rows > li.Row-selected .ZmMsgListDate,
 .DwtListView-Rows > li.Row-selected-disabled .ZmMsgListDate,
 .DwtListView-Rows > li.Row-selected-dragProxy .ZmMsgListDate,
@@ -857,13 +1004,16 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .RowDouble-dragProxy .ZmMsgListDate,
 .Row-dragProxy .ZmListFlagsWrapper,
 .Row-dragProxy .ZmMsgListDate,
-.RowDouble-dragProxy{
-	background: rgb(213, 227, 246) !important;
-}
-.Row-altSelected,
-.Row-altSelected .ZmListFlagsWrapper,
-.Row-altSelected .ZmMsgListDate{
-	background: #f2f2f2 !important;
+.DwtListView-Rows > li.Row-selected .ZmListFlagsWrapper,
+.DwtListView-Rows > li.Row-selected-disabled .ZmListFlagsWrapper,
+.DwtListView-Rows > li.Row-selected-dragProxy .ZmListFlagsWrapper,
+.DwtListView-Rows > li:hover .ZmListFlagsWrapper,
+.DwtListView-Rows > li:hover .ZmMsgListDate,
+.RowEven .ZmMsgListDate,
+.RowEven .ZmListFlagsWrapper,
+.ZmMsgListDate,
+.ZmListFlagsWrapper{
+	background: transparent !important;
 }
 /*.Row{
 	height: 28px;
@@ -891,7 +1041,8 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	margin: 0;
 }
 .ZmMsgListBottomRowIcon > [class^="ImgMsg"]{
-	display: none;
+	/*display: none;*/
+	height: 14px !important;
 }
 .ZmMsgListBottomRowIcon > div,
 .DwtListView-Rows > li .BottomRow > [id$="__pr"] > div{
@@ -900,7 +1051,11 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .DwtListView{
 	border: none;
 }
-.DwtListView-Rows > li .BottomRow, .RowDouble-dragProxy .BottomRow{ @DisplayFlex@ }
+.DwtListView-Rows > li .BottomRow,
+.RowDouble-dragProxy .BottomRow{
+	@DisplayFlex@
+	@AlignItemsCenter@
+}
 
 .DwtListView-Rows > li .SubjectDoubleRow,
 .DwtMsgListMultiCol .ZmMsgListColSubject,
@@ -961,8 +1116,9 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmRowDoubleHeader .TopRow > [id$="__se"]{
 	margin: 0 6px 0 0;
 }
+.Row,
 .RowDouble{
-	border-bottom: 1px solid @BorderColor@;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 .ZmConvExpanded,
 .ZmConvExpanded .ZmListFlagsWrapper,
@@ -985,13 +1141,9 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmRowDoubleHeader.Unread .TopRow > div > [id$="__fr"]{
 	font-weight: bold;
 }
-[id^="zlif__CLV-main__"][id$="__rd"]{
+.ZmMsgListSelection [id$="__rd"]{
 	padding: 0 6px 0 0;
 }
-/*.ZmRowDoubleHeader .TopRow > div > .ImgMsgUnread,
-.ZmRowDoubleHeader .TopRow > div > .ImgMsgRead{
-	display: none;
-}*/
 .Unread .ZmConvListNumMsgs{
 	background-color: @PrimaryBrandingColor@;
 	color: #fff !important;
@@ -1024,8 +1176,9 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .DwtListView-Rows > [aria-expanded="true"]{
 	border-color: transparent;
 }
-.ZmConvExpanded:not(.Row){
-	margin-left: 30px;
+.ZmConvExpanded:not(.Row),
+.RowDouble-matched:not(.Row){
+	margin-left: 16px;
 }
 .ZmConvExpanded + li:not(.ZmConvExpanded){
 	border-top: 1px solid @BorderColor@;
@@ -1152,6 +1305,10 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .Conv2MsgHeader .readUnreadDot{
 	left: .67rem;
 }
+.Conv2Messages .LabelColName:empty,
+.Conv2Messages .LabelColValue:empty{
+	padding: 0;
+}
 .Conv2Messages .Last{
 	background-color: rgb(241, 247, 255);
 	transition: 0.3s ease-out;
@@ -1168,8 +1325,40 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmMailMsgCapsuleView.Last .Conv2MsgHeader .image img{
 	border-color: #ddd;
 }
+.Conv2Reply{
+	border-left: 0;
+	border-left: 0;
+}
 .Conv2Reply .ReplyTextarea{
 	margin-top: 4px;
+}
+.Conv2Reply .ZToolbarTable > tbody > tr > td {
+	padding: 4px 6px 1px 0;
+}
+#zb__CV2__Rep__SEND .ZToolbarButtonBorder{
+	background-color: @PrimaryBrandingColor@;
+	border: 1px solid @PrimaryBrandingColor@;
+	border-radius: 2px;
+}
+#zb__CV2__Rep__SEND .ZToolbarButtonBorder:hover,
+#zb__CV2__Rep__SEND .ZToolbarButtonBorder:focus{
+	background-color: #2767bd;
+}
+#zb__CV2__Rep__SEND .ZWidgetTitle{
+	color: #fff;
+}
+#zb__CV2__Rep__CANCEL .ZToolbarButtonBorder{
+	background-color: transparent;
+	border: 1px solid #747474;
+	border-radius: 2px;
+	transition: 0.3s ease-out;
+}
+#zb__CV2__Rep__CANCEL .ZToolbarButtonBorder:hover,
+#zb__CV2__Rep__CANCEL .ZToolbarButtonBorder:focus{
+	background-color: rgba(0,0,0,0.05);
+}
+#zb__CV2__Rep__CANCEL .ZWidgetTitle{
+	color: #747474;
 }
 
 /* MESSAGE VIEW */
@@ -1197,23 +1386,24 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .addrBubbleHolder input,
 .attBubbleHolder input{
 	font-size: 1rem;
+	height: 1.3rem;
+	margin: 2px 0 2px 2px!important;
 }
 .ZmComposeView{
-	padding-top: 3px;
+	padding-top: 4px;
 }
 .ZmComposeView .subjectField{
 	min-height: 30px;
 }
 .ZmComposeView .ZPropertySheet > tbody > tr > td:first-child{
 	padding: 4px 8px;
-	vertical-align: middle;
 }
 .ZmComposeView .ZPropertySheet > tbody > tr > td:first-child > .ZButton > table{
 	width: 100%;
 }
 .ZmComposeView .addrBubbleContainer,
 .ZmComposeView .attBubbleContainer{
-	min-height: 30px;
+	min-height: 28px;
 	margin-top: 0;
 }
 .ZmAppToolBar,
@@ -1328,13 +1518,13 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	filter: hue-rotate(125deg);
 	border-radius: 50%;
 }
-.ZToolbarTable #zb__CLD__TODAY_left_icon,
-.ZToolbarTable #zb__CLD__DAY_VIEW_left_icon,
-.ZToolbarTable #zb__CLD__WORK_WEEK_VIEW_left_icon,
-.ZToolbarTable #zb__CLD__WEEK_VIEW_left_icon,
-.ZToolbarTable #zb__CLD__MONTH_VIEW_left_icon,
-.ZToolbarTable #zb__CLD__CAL_LIST_VIEW_left_icon,
-.ZToolbarTable #zb__CLD__FB_VIEW_left_icon{
+.ZToolbarTable [id^="zb__CLD__TODAY"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__DAY_VIEW"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__WORK_WEEK_VIEW"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__WEEK_VIEW"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__MONTH_VIEW"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__CAL_LIST_VIEW"][id$="_left_icon"],
+.ZToolbarTable [id^="zb__CLD__FB_VIEW"][id$="_left_icon"] {
 	display: none;
 }
 .ZmCalendarNavToolbar,
@@ -1349,47 +1539,75 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 #ztb__CAL__Nav_items .ZLeftIcon{
 	padding: 4px !important;
 }
-#ztb__CAL__Nav #zcalNavText{
+.ZmNavToolbar[id^="ztb__CAL__Nav"] .ZmNavToolBarTitle{
 	height: auto;
 }
-#ztb__CAL__Nav #zb__CAL__Nav__PAGE_FORWARD{
+.ZmNavToolbar[id^="ztb__CAL__Nav"] .ZToolbarButton[id^="zb__CAL__Nav__PAGE_FORWARD"]{
 	margin-left: 8px;
 }
 #zb__CLD__TODAY,
+[id^="zb__CLD__TODAY"].ZWidget,
 #zb__CLD__DAY_VIEW,
+[id^="zb__CLD__DAY_VIEW"].ZWidget,
 #zb__CLD__WORK_WEEK_VIEW,
+[id^="zb__CLD__WORK_WEEK_VIEW"].ZWidget,
 #zb__CLD__WEEK_VIEW,
+[id^="zb__CLD__WEEK_VIEW"].ZWidget,
 #zb__CLD__MONTH_VIEW,
+[id^="zb__CLD__MONTH_VIEW"].ZWidget,
 #zb__CLD__CAL_LIST_VIEW,
-#zb__CLD__FB_VIEW{
+[id^="zb__CLD__CAL_LIST_VIEW"].ZWidget,
+#zb__CLD__FB_VIEW,
+[id^="zb__CLD__FB_VIEW"].ZWidget {
 	position: relative !important;
-	height: calc(4rem - 3px);
+	height: calc(4rem - 3px) !important;
 }
 #zb__CLD__TODAY .ZToolbarButtonBorder,
+[id^="zb__CLD__TODAY"].ZWidget .ZToolbarButtonBorder,
 #zb__CLD__DAY_VIEW .ZToolbarButtonBorder,
+[id^="zb__CLD__DAY_VIEW"].ZWidget .ZToolbarButtonBorder,
 #zb__CLD__WORK_WEEK_VIEW .ZToolbarButtonBorder,
+[id^="zb__CLD__WORK_WEEK_VIEW"].ZWidget .ZToolbarButtonBorder,
 #zb__CLD__WEEK_VIEW .ZToolbarButtonBorder,
+[id^="zb__CLD__WEEK_VIEW"].ZWidget .ZToolbarButtonBorder,
 #zb__CLD__MONTH_VIEW .ZToolbarButtonBorder,
+[id^="zb__CLD__MONTH_VIEW"].ZWidget .ZToolbarButtonBorder,
 #zb__CLD__CAL_LIST_VIEW .ZToolbarButtonBorder,
-#zb__CLD__FB_VIEW .ZToolbarButtonBorder{
+[id^="zb__CLD__CAL_LIST_VIEW"].ZWidget .ZToolbarButtonBorder,
+#zb__CLD__FB_VIEW .ZToolbarButtonBorder,
+[id^="zb__CLD__FB_VIEW"].ZWidget .ZToolbarButtonBorder{
 	padding: 0 2px;
 }
 #zb__CLD__TODAY .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__TODAY"].ZWidget .ZToolbarButtonBorder > tbody,
 #zb__CLD__DAY_VIEW .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__DAY_VIEW"].ZWidget .ZToolbarButtonBorder > tbody,
 #zb__CLD__WORK_WEEK_VIEW .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__WORK_WEEK_VIEW"].ZWidget .ZToolbarButtonBorder > tbody,
 #zb__CLD__WEEK_VIEW .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__WEEK_VIEW"].ZWidget .ZToolbarButtonBorder > tbody,
 #zb__CLD__MONTH_VIEW .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__MONTH_VIEW"].ZWidget .ZToolbarButtonBorder > tbody,
 #zb__CLD__CAL_LIST_VIEW .ZToolbarButtonBorder > tbody,
-#zb__CLD__FB_VIEW .ZToolbarButtonBorder > tbody{
+[id^="zb__CLD__CAL_LIST_VIEW"].ZWidget .ZToolbarButtonBorder > tbody,
+#zb__CLD__FB_VIEW .ZToolbarButtonBorder > tbody,
+[id^="zb__CLD__FB_VIEW"].ZWidget .ZToolbarButtonBorder > tbody{
 	height: 100%;
 }
 #zb__CLD__TODAY.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__TODAY"].ZSelected .ZToolbarButtonBorder:after,
 #zb__CLD__DAY_VIEW.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__DAY_VIEW"].ZSelected .ZToolbarButtonBorder:after,
 #zb__CLD__WORK_WEEK_VIEW.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__WORK_WEEK_VIEW"].ZSelected .ZToolbarButtonBorder:after,
 #zb__CLD__WEEK_VIEW.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__WEEK_VIEW"].ZSelected .ZToolbarButtonBorder:after,
 #zb__CLD__MONTH_VIEW.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__MONTH_VIEW"].ZSelected .ZToolbarButtonBorder:after,
 #zb__CLD__CAL_LIST_VIEW.ZSelected .ZToolbarButtonBorder:after,
-#zb__CLD__FB_VIEW.ZSelected .ZToolbarButtonBorder:after{
+[id^="zb__CLD__CAL_LIST_VIEW"].ZSelected .ZToolbarButtonBorder:after,
+#zb__CLD__FB_VIEW.ZSelected .ZToolbarButtonBorder:after,
+[id^="zb__CLD__FB_VIEW"].ZSelected .ZToolbarButtonBorder:after{
 	content: "";
 	position: absolute;
 	bottom: 0;
@@ -1417,6 +1635,12 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 }
 [id$="_attendeesTable"] [id$="_SELECT_"]{
 	padding-right: 3px;
+}
+.ZmInviteToolBar .ZToolbarTable td > div{
+	vertical-align: middle;
+}
+.appt_body table{
+	background-image: none;
 }
 
 /* PREFERENCES */
@@ -1458,7 +1682,9 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	padding-top: 6px;
 }
 #ztb__TKL-main_items > td:nth-child(9) .ZLeftIcon:empty,
-#ztb__TKL-main_items > td:nth-last-child(3) .ZLeftIcon:empty{
+#ztb__TKL-main_items > td:nth-last-child(3) .ZLeftIcon:empty,
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:nth-child(9) .ZLeftIcon:empty,
+.ZToolbar > .ZToolbarTable > tbody > [id^="ztb__TKL-SR"][id*="_items"] > td:nth-last-child(3) .ZLeftIcon:empty{
 	padding: 0 !important;
 }
 .ZOptionsSectionTabView .ZTab.ZSelected .ZTabBorder{
@@ -1479,7 +1705,8 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmTaskProgress > div{
 	height: 100% !important;
 }
-#ztb__TKL-main__Nav_items #ztkl-mainNavText{
+#ztb__TKL-main__Nav_items #ztkl-mainNavText,
+[id^="ztb__TKL-SR"][id$="__Nav_items"] .ZmNavToolBarTitle{
 	height: auto;
 }
 .ZmTaskEditView .ZmSelector > .ZHasDropDown{
@@ -1506,6 +1733,9 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmTaskMultiView .DwtListView > table + input{
 	padding: 0px 8px !important;
 }
+[id*="zb__TKL"][id*="__Nav__PAGE_FORWARD"]{
+	margin-left: 8px;
+}
 
 /* TOAST */
 .ZToast{
@@ -1515,6 +1745,7 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	right: 12px;
 	opacity: 0;
 	pointer-events: none;
+	z-index: 1010;
 }
 [style$="0.99;"].ZToast {
 	pointer-events: auto;
@@ -1637,6 +1868,25 @@ input[type="password"]:focus,
 input[type="email"]:focus{
 	font-size: 1rem;
 }
+.ZMenuItem,
+#ZmTagColorMenu{
+	height: 2.5rem;
+}
+
+/* MENUITEM */
+.ZMenuItemTable TD:not(:empty){
+	padding: 0;
+}
+.ZMenuItemBorder{
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.ZMenuItem .ZWidgetTitle{
+	padding: 0 8px !important;
+}
+.ZMenuItem .ZCheckIcon .ImgMenuRadio{
+	@transform@: translateX(-4px);
+}
 
 /* LOGIN */
 .LoginScreen .form td{
@@ -1675,6 +1925,7 @@ input[type="email"]:focus{
 	position: relative;
 	width: 18px;
 	height: 18px;
+	margin-left: 0;
 }
 .LoginScreen #remember,
 .LoginScreen #remember + label{
@@ -1689,7 +1940,7 @@ input[type="email"]:focus{
 	height: 100%;
 	@CheckDeselectedWhite@
 	@BgImageProps@
-	background-color: #4e8ee2;
+	background-color: @PrimaryBrandingColor@;
 }
 .LoginScreen #remember:checked:after{
 	@CheckSelectedWhite@
@@ -1713,16 +1964,21 @@ input[type="email"]:focus{
 }
 .LoginScreen .contentBox{
 	width: 320px;
-	padding: 30px;
-	background-color: #4e8ee2;
-	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-	border-radius: 2px;
+	/*padding: 30px;*/
+	/*background-color: #4e8ee2;*/
+	/*box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);*/
+	/*border-radius: 2px;*/
 }
 .LoginScreen .contentBox > div:nth-child(2):not(#ZLoginAppName){
 	border-bottom: none !important;
 }
-.LoginScreen .Footer{
+.LoginScreen .Footer,
+.LoginScreen .Footer-small{
 	color: #fff;
+}
+.LoginScreen .Footer .copyright,
+.LoginScreen .Footer-small.copyright{
+	padding: 0 30px;
 }
 .LoginScreen .form > tbody > tr:last-child{
 	@DisplayFlex@
@@ -1752,6 +2008,9 @@ input[type="email"]:focus{
 	width: 190px;
 	height: 50px;
 	background-position: center center;
+}
+.LoginScreen .ImgAppBanner{
+	margin: 0 auto;
 }
 .LoginScreen #ZLoginForgotPassword{
 	float: none;
@@ -1783,6 +2042,23 @@ input[type="email"]:focus{
 	margin-left: 0;
 	margin-right: 0;
 }
+.LoginScreen .center-small{
+	background-color: @PrimaryBrandingColor@;
+}
+.LoginScreen .center-small,
+.SplashScreen .center-small,
+.ErrorScreen .center-small{
+	width: 100%;
+}
+.LoginScreen .center-small .contentBox,
+.SplashScreen .center-small .contentBox,
+.ErrorScreen .center-small .contentBox{
+	width: 290px;
+}
+.LoginScreen .center-small .form INPUT[type='text'],
+.LoginScreen .center-small .form INPUT[type='password']{
+	width: 100%;
+}
 
 /* RECOVER PASSWORD */
 html[data-ispasswordrecoverypage] .DwtShell{
@@ -1790,21 +2066,25 @@ html[data-ispasswordrecoverypage] .DwtShell{
 }
 html[data-ispasswordrecoverypage] .WindowOuterContainer{
 	width: auto;
-	background-color: #4e8ee2;
-	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+	/*background-color: #4e8ee2;*/
+	/*box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);*/
 }
 .ZmPasswordRecoverySetupContainer input[type="text"],
 .ZmPasswordRecoverySetupContainer input[type="password"]{
-	border-radius: 2px;
+	float: none;
+	width: 100%;
 	padding: 0 6px;
+	border-radius: 2px;
+	height: 2.5rem;
 }
 .ZmPasswordRecoveryButton,
 .ZmPasswordRecoveryButton:hover,
 .ZmPasswordRecoveryButton.ZDisabled,
 .ZmPasswordRecoveryButton.ZDisabled:hover{
+	padding: 4px 8px;
+	margin: 0;
 	background-color: #1e5093;
 	border: none;
-	padding: 4px 8px;
 	transition: 0.3s ease-out;
 }
 .ZmPasswordRecoveryButton:hover .ZWidgetTitle,
@@ -1821,6 +2101,20 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer{
 [id^="Back to sign in_"] .ZmPasswordRecoveryButton:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
+html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > table > tbody > tr > td{
+	padding: 0;
+}
+.ZmPasswordRecoverySetupContainer{
+	margin: 20px 0;
+}
+.ZmPasswordRecoverySetupContainer label{
+	margin: 5px 5px 5px 0;
+}
+.ZmPasswordRecoverySetupInfo,
+.ZmPasswordRecoverySetupError{
+	border-radius: 2px;
+	margin: 10px 0;
+}
 
 /* MEDIA QUERIES */
 @media(max-width: 1699px) {
@@ -1834,9 +2128,7 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer{
 	[id^="zb__App__com_zextras_team"][id$="_title"]{
 		display: none;
 	}
-	.search_input{
-		width: 100px;
-	}
+	.search_input,
 	.search_input-expanded{
 		width: 130px;
 	}
@@ -1865,9 +2157,7 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer{
 	}
 }
 @media(max-width: 1299px) {
-	.search_input{
-		width: 60px;
-	}
+	.search_input,
 	.search_input-expanded{
 		width: 90px;
 	}
@@ -1881,7 +2171,7 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer{
 @media(max-width: 599px) {
 	.LoginScreen .contentBox{
 		width: 270px;
-		background-color: @PrimaryBrandingColor@;
+		/*background-color: @PrimaryBrandingColor@;*/
 		padding: 0;
 	}
 }
