@@ -1,0 +1,10 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+clone:
+  depth: full
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - git push --mirror git@github.com:Zextras/zextras-theme.git
