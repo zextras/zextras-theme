@@ -1,4 +1,4 @@
-Zextras Transitional Theme
+Zextras Theme
 ========================
 
 Here are the instructions to deploy the theme:
