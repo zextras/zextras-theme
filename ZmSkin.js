@@ -405,6 +405,5 @@ function CalLoaded() {
 }
 
 function getSvgImage(icon, color) {
-    // <img class="tooltip-fix" src="#" />
     return '<div class="sni-svg" data-name="sni-svg" style="color: ' + (ZmOrganizer.COLOR_VALUES[color] || (color !== '0' ? color : '#747474')) + '">' + svgImages[icon] + '</div>';
 }
