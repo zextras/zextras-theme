@@ -1,23 +1,23 @@
 /*
  * ***** BEGIN LICENSE BLOCK *****
- * Zimbra Collaboration Suite Web Client
- * Copyright (C) 2011, 2013, 2014 Zimbra, Inc.
+ * <Zextras Theme is a open source theme for Zimbra>
+ * Copyright (C) 2020  Zextras
  *
- * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at: http://www.zimbra.com/license
- * The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15
- * have been added to cover use of software over a computer network and provide for limited attribution
- * for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied.
- * See the License for the specific language governing rights and limitations under the License.
- * The Original Code is Zimbra Open Source Web Client.
- * The Initial Developer of the Original Code is Zimbra, Inc.
- * All portions of the code are Copyright (C) 2011, 2013, 2014 Zimbra, Inc. All Rights Reserved.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * ***** END LICENSE BLOCK *****
  */
+
 function ZmSkin(hints) {
     this.hints = this.mergeObjects(ZmSkin.hints, hints);
 
@@ -69,8 +69,8 @@ ZmSkin.hints = {
     treeBottomAd:   { containers: "skin_tr_tree_bottom_ad" },
 
     // specific components
-    helpButton:     { style: "link", container: "quota", url: "@HelpAdvancedURL@" },        /*** TODO: this 'container' should be removed ??? ***/
-    logoutButton:   { style: "link", container: "quota" },      /*** TODO: this 'container' should be removed ??? ***/
+    helpButton:     { style: "link", container: "quota", url: "@HelpAdvancedURL@" },
+    logoutButton:   { style: "link", container: "quota" },
     appChooser:     { position:"static", direction: "LR" },
     toast:          { location: "SE",
                       transitions: [
@@ -309,6 +309,12 @@ var uiLoadedPolling = setInterval(function() {
         UiLoaded();
     }
 }, 1000);
+var calLoadingPolling = setInterval(function() {
+    if (typeof ZmCalColView !== "undefined") {
+        clearInterval(calLoadingPolling);
+        CalLoaded();
+    }
+}, 1000);
 
 var svgImages = {
     'Inbox': '<svg viewBox="0 0 24 24" fill="currentColor"><g data-name="Layer 2"><path d="M20.79 11.34l-3.34-6.68A3 3 0 0014.76 3H9.24a3 3 0 00-2.69 1.66l-3.34 6.68a2 2 0 00-.21.9V18a3 3 0 003 3h12a3 3 0 003-3v-5.76a2 2 0 00-.21-.9zM8.34 5.55a1 1 0 01.9-.55h5.52a1 1 0 01.9.55L18.38 11H16a1 1 0 00-1 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2a1 1 0 00-1-1H5.62z"></path></g></svg>',
@@ -347,13 +353,24 @@ AjxImg.getImageHtml = function() {
     return refGetImageHtml.apply(this, arguments);
 };
 
-// var ref = Dwt.createLinearGradientCss;
 Dwt.createLinearGradientCss = function(to, from, direction) {
     var css = '';
-    var bgColor = AjxColor.lighten(from, 0.6);
+    var bgColor = AjxColor.lighten(from, 0.5);
     css += 'background-color:';
     css += bgColor + ';';
     return css;
+};
+
+ZmListView.prototype._getEventTarget = function(a){
+    var b = a && a.target;
+    var closestSvg = b.closest(".sni-svg");
+    if (b && closestSvg) {
+        return closestSvg.parentNode;
+    }
+    if (b && (b.nodeName === "IMG" || (b.className && b.className.match(/\bImg/)))) {
+        return b.parentNode
+    }
+    return b;
 };
 
 function UiLoaded() {
@@ -383,6 +400,11 @@ function UiLoaded() {
     });
 }
 
+function CalLoaded() {
+    ZmCalColView._OPACITY_APPT_TENTATIVE = 70;
+}
+
 function getSvgImage(icon, color) {
+    // <img class="tooltip-fix" src="#" />
     return '<div class="sni-svg" data-name="sni-svg" style="color: ' + (ZmOrganizer.COLOR_VALUES[color] || (color !== '0' ? color : '#747474')) + '">' + svgImages[icon] + '</div>';
 }
