@@ -851,6 +851,7 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ImgApptRecurIndicator{ @ImgApptRecurIndicator@ @BgImageProps@ }
 .ImgPlus, .ImgAdd, .ZHover .ImgAdd, .ZFocused .ImgAdd{ @PlusIcon@ @BgImageProps@ }
 .ImgMinus, .ImgRemove, .ZHover .ImgRemove, .ZFocused .ImgRemove{ @MinusIcon@ @BgImageProps@ }
+.ImgMeetingRequest{ @ImgMeetingRequest@ @BgImageProps@ }
 
 .ImgPriorityHigh_list{
 	@RedUpArrow@
