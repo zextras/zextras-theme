@@ -1669,6 +1669,13 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	border-top: 1px solid #ddd;
 	background-color: #f2f2f2;
 }
+.ZmReminderDialog td {
+	vertical-align: middle;
+}
+.ZmReminderDialog .DwtToolbarButton{
+	padding: 0;
+	height: 24px;
+}
 
 /* PREFERENCES */
 #zb__PREF__SAVE{
