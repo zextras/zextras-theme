@@ -317,12 +317,12 @@ if (typeof ZmOrganizer !== 'undefined') {
             CalLoaded();
         }
     }, 1000);
-    var zmDoublePaneViewPolling = setInterval(function () {
-        if (typeof ZmDoublePaneView !== "undefined") {
-            clearInterval(zmDoublePaneViewPolling);
-            ZmDoublePaneViewLoaded();
-        }
-    }, 1000);
+    // var zmDoublePaneViewPolling = setInterval(function () {
+    //     if (typeof ZmDoublePaneView !== "undefined") {
+    //         clearInterval(zmDoublePaneViewPolling);
+    //         ZmDoublePaneViewLoaded();
+    //     }
+    // }, 1000);
 
     var svgImages = {
         'Inbox': '<svg viewBox="0 0 24 24" fill="currentColor"><g data-name="Layer 2"><path d="M20.79 11.34l-3.34-6.68A3 3 0 0014.76 3H9.24a3 3 0 00-2.69 1.66l-3.34 6.68a2 2 0 00-.21.9V18a3 3 0 003 3h12a3 3 0 003-3v-5.76a2 2 0 00-.21-.9zM8.34 5.55a1 1 0 01.9-.55h5.52a1 1 0 01.9.55L18.38 11H16a1 1 0 00-1 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2a1 1 0 00-1-1H5.62z"></path></g></svg>',
@@ -411,12 +411,12 @@ if (typeof ZmOrganizer !== 'undefined') {
         ZmCalColView._OPACITY_APPT_TENTATIVE = 70;
     }
 
-    function ZmDoublePaneViewLoaded() {
-        ZmDoublePaneView.prototype.setBounds = function (c, e, d, b) {
-            DwtComposite.prototype.setBounds.call(this, c, e, d, b);
-            // this._resetSize(d,b)
-        };
-    }
+    // function ZmDoublePaneViewLoaded() {
+    //     ZmDoublePaneView.prototype.setBounds = function (c, e, d, b) {
+    //         DwtComposite.prototype.setBounds.call(this, c, e, d, b);
+    //         // this._resetSize(d,b)
+    //     };
+    // }
 
     function getSvgImage(icon, color) {
         return '<div class="sni-svg" data-name="sni-svg" style="color: ' + (ZmOrganizer.COLOR_VALUES[color] || (color !== '0' ? color : '#747474')) + '">' + svgImages[icon] + '</div>';
