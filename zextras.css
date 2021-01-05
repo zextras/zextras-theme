@@ -1936,6 +1936,9 @@ input[type="email"]:focus{
 }
 
 /* LOGIN */
+
+.LoginScreen [name="loginForm"] .form tr:nth-child(3)>td:first-child,.LoginScreen [name="loginForm"] .form tr:nth-child(4)>td:first-child:not(:last-child){display:block !important;}
+
 .LoginScreen .form td{
 	padding-bottom: 0;
 }
@@ -1949,7 +1952,9 @@ input[type="email"]:focus{
 	margin-bottom: 8px;
 }
 .LoginScreen [for="username"],
-.LoginScreen [for="password"]{
+.LoginScreen [for="password"],
+.LoginScreen [for="loginNewPassword"],
+.LoginScreen [for="confirmNew"]{
 	display: block;
 	margin-bottom: 5px;
 }
@@ -2057,8 +2062,8 @@ input[type="email"]:focus{
 }
 .LoginScreen .ImgLoginBanner{
 	margin: 0 auto !important;
-	width: 190px;
-	height: 50px;
+	width: 260px;
+	/*height: 50px;*/
 	background-position: center center;
 }
 .LoginScreen .ImgAppBanner{
