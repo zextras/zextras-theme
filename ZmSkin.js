@@ -317,12 +317,12 @@ if (typeof ZmOrganizer !== 'undefined') {
             CalLoaded();
         }
     }, 1000);
-    var zmDoublePaneViewPolling = setInterval(function () {
-        if (typeof ZmDoublePaneView !== "undefined") {
-            clearInterval(zmDoublePaneViewPolling);
-            ZmDoublePaneViewLoaded();
-        }
-    }, 1000);
+    // var zmDoublePaneViewPolling = setInterval(function () {
+    //     if (typeof ZmDoublePaneView !== "undefined") {
+    //         clearInterval(zmDoublePaneViewPolling);
+    //         ZmDoublePaneViewLoaded();
+    //     }
+    // }, 1000);
 
     var svgImages = {
         'Inbox': '<svg viewBox="0 0 24 24" fill="currentColor"><g data-name="Layer 2"><path d="M20.79 11.34l-3.34-6.68A3 3 0 0014.76 3H9.24a3 3 0 00-2.69 1.66l-3.34 6.68a2 2 0 00-.21.9V18a3 3 0 003 3h12a3 3 0 003-3v-5.76a2 2 0 00-.21-.9zM8.34 5.55a1 1 0 01.9-.55h5.52a1 1 0 01.9.55L18.38 11H16a1 1 0 00-1 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1v-2a1 1 0 00-1-1H5.62z"></path></g></svg>',
@@ -397,58 +397,62 @@ if (typeof ZmOrganizer !== 'undefined') {
 
         /* Show/hide search bar */
         document.querySelector('#skin_spacing_search .search-trigger').addEventListener('click', function (e) {
-            this.parentElement.classList.add('active');
             document.activeElement.blur();
-            if (typeof(this.parentElement.querySelector('.search_input')) !== 'undefined' && this.parentElement.querySelector('.search_input') !== 'null' ) {
-                var addspace = this.parentElement.querySelector('.search_input').value;
-                if (addspace != "" &&  !/(.*)\s+$/.test(addspace) ) {
-                    this.parentElement.querySelector('.search_input').value = addspace + " ";
-                }
-
-                this.parentElement.querySelector('.search_input').click();
-
-                this.parentElement.querySelector('.search_input').addEventListener('click', function(e) {
+            this.parentElement.classList.add('active');
+            var searchInput = this.parentElement.querySelector('.search_input');
+            if (searchInput) {
+                searchInput.addEventListener('focus', function(e) {
                     //fix zimbra bug
-                    if ( typeof(this.value) !== "undefined" ) {
-                        var addspace = this.value;
-                        if (addspace != "" &&  !/(.*)\s+$/.test(addspace) ) {
-                            this.value = addspace + " ";
+                    if (typeof this.value !== 'undefined') {
+                        if (this.value !== '' &&  !/(.*)\s+$/.test(this.value) ) {
+                            this.value += ' ';
                         }
                     }
                 });
 
-                this.parentElement.querySelector('.search_input').focus();
+                searchInput.focus();
+                setTimeout(function() {
+                    searchInput.click();
+                }, 1);
             }
         });
         document.querySelector('#skin_spacing_search .search-close').addEventListener('click', function (e) {
             this.parentElement.parentElement.classList.remove('active');
             document.activeElement.blur();
         });
+        ZmInviteMsgView.prototype.updatePtstMsg = function(ptst) {
+            var ptstMsgBannerDiv = document.getElementById(this._ptstMsgBannerId);
+            if (!ptstMsgBannerDiv) {
+                return;
+            }
+            ptstMsgBannerDiv.className = ZmInviteMsgView.PTST_MSG[ptst].className;
+            ptstMsgBannerDiv.style.display = "block"; // since it might be display none if there's no message to begin with (this is the first time ptst is set by buttons)
+
+            var ptstMsgElement = document.getElementById(this._ptstMsgId);
+            if (ptstMsgElement) {
+                ptstMsgElement.innerHTML = ZmInviteMsgView.PTST_MSG[ptst].msg;
+            }
+
+            var ptstIconImg = document.getElementById(this._ptstMsgIconId);
+            if (ptstIconImg) {
+                var icon = ZmCalItem.getParticipationStatusIcon(ptst);
+                ptstIconImg.innerHTML = AjxImg.getImageHtml(icon);
+            }
+        };
     }
 
     function CalLoaded() {
         ZmCalColView._OPACITY_APPT_TENTATIVE = 70;
     }
 
-     function ZmDoublePaneViewLoaded() {
-         ZmDoublePaneView.prototype.setBounds = function (c, e, d, b) {
-             DwtComposite.prototype.setBounds.call(this, c, e, d, b);
-              this._resetSize(d,b)
-         };
-     }
+     // function ZmDoublePaneViewLoaded() {
+     //     ZmDoublePaneView.prototype.setBounds = function (c, e, d, b) {
+     //         DwtComposite.prototype.setBounds.call(this, c, e, d, b);
+     //          this._resetSize(d,b)
+     //     };
+     // }
 
     function getSvgImage(icon, color) {
         return '<div class="sni-svg" data-name="sni-svg" style="color: ' + (ZmOrganizer.COLOR_VALUES[color] || (color !== '0' ? color : '#747474')) + '">' + svgImages[icon] + '</div>';
-    }
-
-    function isIE() {
-        var ua = window.navigator.userAgent;
-        var isIE = /MSIE|Trident/.test(ua);
-
-        if ( isIE ) {
-            alert("shit!");
-        } else {
-            console.log("other browser!")
-        }
     }
 }

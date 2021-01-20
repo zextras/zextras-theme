@@ -409,7 +409,7 @@ hr{
 }
 #zb__NEW_MENU .ZToolbarButtonTable .ZWidgetTitle{
 	height: 100%;
-	padding: 8px 4px 8px 14px !important;
+	padding: 0.7rem 4px 0.7rem 14px !important;
 	text-transform: uppercase;
 	color: #fff;
 	background-color: rgba(0, 0, 0, 0);
@@ -526,7 +526,9 @@ hr{
 [id*="_FORMAT_TEXT_left_icon"] .ImgGenericDoc{ @ImgFormatText@ @BgImageProps@ }
 
 /* Left Navigation */
-.ZmOverview{ border-top: 1px solid #ccc; }
+.ZmOverview{
+	border-top: 1px solid #ccc;
+}
 .overviewHeader{
 	height: calc(3rem - 1px);
 	background-color: rgba(0,0,0,0);
@@ -542,12 +544,15 @@ hr{
 .overviewHeader > table > tbody > tr{
 	@DisplayFlex@
 	@AlignItemsCenter@
-	height: 100%;
+	height: calc(3rem - 1px);
 	padding: 0 15px;
 }
 .overviewHeader > table > tbody > tr > td,
 .overviewHeader .ZLeftIcon{
 	background-color: transparent;
+}
+.overviewHeader > table > tbody > tr > td{
+	height: auto;
 }
 .overviewHeader > table > tbody > tr > td:first-child,
 .DwtTreeItem > table > tbody > tr > td:first-child{
@@ -625,10 +630,21 @@ hr{
 	background-color: transparent !important;
 	box-shadow: 0px -4px 14px -4px rgba(0,0,0,0.3);
 }
+.DwtTreeItem,
+.DwtTreeItem-selected,
+.DwtTreeItem-actioned,
+.DwtTreeItem-selected-focused{
+	height: 26px;
+	height: 2.2rem;
+}
 .DwtTreeItem .imageCell,
 .DwtTreeItem-selected .imageCell,
 .DwtTreeItem-selected-focused .imageCell,
-.DwtTreeItem-actioned .imageCell{
+.DwtTreeItem-actioned .imageCell,
+.DwtTreeItem .ZLeftIcon.ZWidgetIcon,
+.DwtTreeItem-selected .ZLeftIcon.ZWidgetIcon,
+.DwtTreeItem-selected-focused .ZLeftIcon.ZWidgetIcon,
+.DwtTreeItem-actioned .ZLeftIcon.ZWidgetIcon{
 	padding: 0 6px;
 }
 .DwtTreeItem .imageCell:empty,
@@ -956,8 +972,8 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmOverview .ImgDraftFolder,
 .ZmOverview .ImgSpamFolder,
 .ZmOverview .ImgTrash{
-	width: 20px!important;
-	height: 20px!important;
+	width: 16px!important;
+	height: 16px!important;
 }
 .ImgMsgUnread,
 .ImgMsgRead,
@@ -990,6 +1006,19 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 	height: 6px;
 	background-color: @PrimaryBrandingColor@;
 	border-radius: 50%;
+}
+.ImgDndMultiYes_48{
+	@ImgFlake@
+	@BgImageProps@
+}
+.ImgDndMultiNo_48{
+	@ImgFlakeRed@
+	@BgImageProps@
+}
+.ImgDndMultiYes_48 + div,
+.ImgDndMultiNo_48 + div{
+	left: 20px !important;
+	top: 18px !important;
 }
 
 /* MAILS */
@@ -1517,7 +1546,22 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 [id*="zv__COMPOSE"][id*="_subject_row"] > td:nth-child(2) td{
 	padding-right: 0 !important;
 }
-
+.ZmShareToolBar{
+	padding: 7px 0;
+}
+.ZmShareToolBar > .ZToolbarTable > tbody > tr > td:nth-child(2){
+	padding-left: 7px;
+}
+.ZmShareToolBar .ZWidgetTable.ZToolbarButtonBorder{
+	border-radius: 2px;
+	border: 1px solid #aaa;
+}
+.ZmShareToolBar .ZToolbarButton{
+	transition: 0.3s ease-out;
+}
+.ZmShareToolBar .ZToolbarButton.ZHover{
+	background-color: rgba(0,0,0,0.1);
+}
 /* CALENDAR */
 .DwtCalendar > table{
 	height: 100%;
@@ -1773,9 +1817,8 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 
 /* TOAST */
 .ZToast{
-	top: auto!important;
+	top: 105px !important;
 	left: auto !important;
-	bottom: 12px;
 	right: 12px;
 	opacity: 0;
 	pointer-events: none;
@@ -1937,8 +1980,6 @@ input[type="email"]:focus{
 
 /* LOGIN */
 
-.LoginScreen [name="loginForm"] .form tr:nth-child(3)>td:first-child,.LoginScreen [name="loginForm"] .form tr:nth-child(4)>td:first-child:not(:last-child){display:block !important;}
-
 .LoginScreen .form td{
 	padding-bottom: 0;
 }
@@ -1957,6 +1998,10 @@ input[type="email"]:focus{
 .LoginScreen [for="confirmNew"]{
 	display: block;
 	margin-bottom: 5px;
+}
+.LoginScreen [name="loginForm"] .form tr:nth-child(3) > td:first-child,
+.LoginScreen [name="loginForm"] .form tr:nth-child(4) > td:first-child:not(:last-child){
+	display:block !important;
 }
 .LoginScreen .zLoginLabelContainer{
 	padding-bottom: 5px !important;
@@ -2024,7 +2069,7 @@ input[type="email"]:focus{
 	margin-left: 0;
 }
 .LoginScreen .contentBox{
-	width: 320px;
+	width: 440px;
 }
 .LoginScreen .contentBox > div:nth-child(2):not(#ZLoginAppName){
 	border-bottom: none !important;
@@ -2062,8 +2107,8 @@ input[type="email"]:focus{
 }
 .LoginScreen .ImgLoginBanner{
 	margin: 0 auto !important;
-	width: 260px;
-	/*height: 50px;*/
+	width: 100%;
+	height: 60px;
 	background-position: center center;
 }
 .LoginScreen .ImgAppBanner{
