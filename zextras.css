@@ -556,7 +556,7 @@ hr{
 }
 .overviewHeader > table > tbody > tr > td:first-child,
 .DwtTreeItem > table > tbody > tr > td:first-child{
-	margin-right: 4px;
+	margin-right: -1px;
 }
 .OverviewTree .DwtTreeItem,
 .OverviewTree .DwtTreeItem-selected,
@@ -645,7 +645,7 @@ hr{
 .DwtTreeItem-selected .ZLeftIcon.ZWidgetIcon,
 .DwtTreeItem-selected-focused .ZLeftIcon.ZWidgetIcon,
 .DwtTreeItem-actioned .ZLeftIcon.ZWidgetIcon{
-	padding: 0 6px;
+	padding: 0 2px;
 }
 .DwtTreeItem .imageCell:empty,
 .DwtTreeItem-selected .imageCell:empty{
