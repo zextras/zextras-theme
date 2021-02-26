@@ -2021,17 +2021,17 @@ input[type="email"]:focus{
 	border: none;
 	border-radius: 2px;
 }
-.LoginScreen #remember{
+.LoginScreen input#remember{
 	position: relative;
 	width: 18px;
 	height: 18px;
 	margin-left: 0;
 }
-.LoginScreen #remember,
-.LoginScreen #remember + label{
+.LoginScreen input#remember,
+.LoginScreen input#remember + label{
 	vertical-align: middle;
 }
-.LoginScreen #remember:after{
+.LoginScreen input#remember:after{
 	content: "";
 	position: absolute;
 	top: 0;
@@ -2042,7 +2042,7 @@ input[type="email"]:focus{
 	@BgImageProps@
 	background-color: @PrimaryBrandingColor@;
 }
-.LoginScreen #remember:checked:after{
+.LoginScreen input#remember:checked:after{
 	@CheckSelectedWhite@
 }
 .LoginScreen [name="loginForm"] .form tr:nth-child(3) > td:first-child,
@@ -2218,6 +2218,130 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 	margin: 10px 0;
 }
 
+/* ZIMBRA 9 LOGIN FIXES */
+#modifiedLogin.LoginScreen {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#modifiedLogin.LoginScreen .modernCenter{
+	height: 100%;
+}
+#modifiedLogin.LoginScreen .modernContentBox {
+	position: relative;
+	top: 50%;
+	margin: 0 auto;
+	max-width: 440px;
+	transform: translateY(-50%);
+}
+#modifiedLogin.LoginScreen .signIn{
+	color: #fff;
+}
+#modifiedLogin form#zLoginForm .form INPUT[type='text'],
+#modifiedLogin form#zLoginForm .form INPUT[type='password'],
+#modifiedLogin .twoFactorForm INPUT[type="text"]{
+	border: 1px solid transparent;
+	outline: 0 solid #333 !important;
+}
+#modifiedLogin form#zLoginForm .form INPUT[type='text']:focus,
+#modifiedLogin form#zLoginForm .form INPUT[type='password']:focus,
+#modifiedLogin .twoFactorForm INPUT[type="text"]:focus{
+	outline-width: 2px !important;
+}
+#modifiedLogin.LoginScreen .passwordWrapper{
+	color: #333;
+	clear: both;
+}
+#modifiedLogin.LoginScreen .passwordWrapper > span:hover{
+	color: @PrimaryBrandingColor@;
+}
+#modifiedLogin label[for="password"]{
+	float: left;
+}
+#modifiedLogin #ZLoginForgotPassword{
+	color: #fff;
+	float: right;
+}
+#modifiedLogin.LoginScreen .signInAndLabel{
+	display: flex;
+	flex-direction: row-reverse;
+}
+#modifiedLogin.LoginScreen .rememberCheckWrapper{
+	justify-content: flex-start;
+	padding-left: 0;
+}
+#modifiedLogin.LoginScreen input.loginButton,
+#modifiedLogin.LoginScreen button.loginButton{
+	background-color: rgba(0,0,0,0.3);
+	border-radius: 3px;
+	color: #fff;
+	text-transform: uppercase;
+}
+#modifiedLogin.LoginScreen .versionBlock{
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 16px 0 0;
+	background: transparent;
+}
+#modifiedLogin.LoginScreen .ZLoginInfo{
+	background-color: #fff;
+	color: #333;
+}
+#modifiedLogin.LoginScreen .versionBlock #client{
+	width: calc(100% - 30px);
+}
+#modifiedLogin.LoginScreen .versionBlock #ZLoginWhatsThisButton{
+	filter: invert(1);
+	right: 0;
+	left: auto;
+}
+#modifiedLogin.LoginScreen .versionBlock [for=client]{
+	padding-right: 12px;
+}
+#modifiedLogin.LoginScreen .versionBlock [for=client] + div{
+	flex: 1;
+}
+#modifiedLogin.LoginScreen .Footer{
+	margin-bottom: 18px;
+}
+#modifiedLogin.LoginScreen #ZLoginNotice{
+	display: block;
+}
+.WindowInnerContainer .ZmPasswordRecoverySetup .logo .ImgLoginBanner{
+	max-width: 100%;
+}
+.WindowInnerContainer .ZmPasswordRecoverySetup .logo {
+	padding: 15px 40px;
+	background-color: rgba(0,0,0,0.2);
+}
+.ZmPasswordRecoveryCustomPara + .ZmPasswordRecoverySetupContainer{
+	margin: 20px 0 0;
+}
+.PasswordRecoverySubmitButton{
+	margin-bottom: 12px !important;
+}
+.PasswordRecoverySubmitButton .ZWidgetTitle{
+	color: #fff;
+}
+.PasswordRecoveryBackToSignInButton,
+.PasswordRecoveryBackToSignInButton:hover{
+	margin: 0 !important;
+}
+.PasswordRecoveryBackToSignInButton:hover .ZWidgetTitle	{
+	color: #333 !important;
+}
+.PasswordRecoveryBackToSignInButton.ZHover{
+	background-color: rgba(0,0,0,0.1);
+}
+.PasswordRecoveryBackToSignInButton.ZHover .ZButtonBorder{
+	background-color: transparent;
+}
+
 /* MEDIA QUERIES */
 @media(max-width: 1699px) {
 	#zb__App__Mail_title,
@@ -2271,9 +2395,15 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 	}
 }
 @media(max-width: 599px) {
+	.LoginScreen .ImgLoginBanner{
+		height: 50px;
+	}
 	.LoginScreen .contentBox{
 		width: 270px;
 		/*background-color: @PrimaryBrandingColor@;*/
 		padding: 0;
+	}
+	#modifiedLogin.LoginScreen .modernContentBox{
+		width: 270px;
 	}
 }
