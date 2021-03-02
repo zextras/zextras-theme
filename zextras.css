@@ -2228,7 +2228,7 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 	overflow: hidden;
 }
 #modifiedLogin.LoginScreen .modernCenter{
-	height: 100%;
+	height: 100vh;
 }
 #modifiedLogin.LoginScreen .modernContentBox {
 	position: relative;
