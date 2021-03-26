@@ -1159,12 +1159,30 @@ div .ImgarchiveZimletIcon{ @ImgarchiveZimletIcon@ @BgImageProps@ width: 18px; he
 .ZmRowDoubleHeader .TopRow{
 	margin-top: 0;
 	margin-bottom: 0.6667rem;
+	@DisplayFlex@
+	@AlignItemsCenter@
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
 }
 .ZmRowDoubleHeader .BottomRow{
 	margin-bottom: 0;
 }
 .ZmRowDoubleHeader .TopRow > [id$="__se"]{
 	margin: 0 6px 0 0;
+}
+.ZmRowDoubleHeader .TopRow > [id*="__fr"],
+.ZmRowDoubleHeader .TopRow > [id*="__rd"] + div:not(.ZmMsgListExpand){
+	-webkit-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.ZmRowDoubleHeader .TopRow > .ZmMsgListDate{
+	position: static;
+	width: auto;
+	padding-left: 10px;
 }
 .Row,
 .RowDouble{
@@ -2266,7 +2284,7 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 	float: right;
 }
 #modifiedLogin.LoginScreen .signInAndLabel{
-	display: flex;
+	@DisplayFlex@
 	flex-direction: row-reverse;
 }
 #modifiedLogin.LoginScreen .rememberCheckWrapper{
@@ -2282,8 +2300,8 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 }
 #modifiedLogin.LoginScreen .versionBlock{
 	position: relative;
-	display: flex;
-	align-items: center;
+	@DisplayFlex@
+	@AlignItemsCenter@
 	margin: 0;
 	padding: 16px 0 0;
 	background: transparent;
@@ -2405,5 +2423,17 @@ html[data-ispasswordrecoverypage] .WindowOuterContainer .DwtDialogButtonBar > ta
 	}
 	#modifiedLogin.LoginScreen .modernContentBox{
 		width: 270px;
+	}
+}
+@media(max-height: 900px) {
+	.ZMenuItem{
+		height: 1.7rem;
+	}
+	.ZMenuItem .ZLeftIcon.ZWidgetIcon > div{
+		width: 13px !important;
+		height: 13px !important;
+	}
+	.ZMenuItemTable .ZWidgetTitle{
+		font-size: 1rem;
 	}
 }
