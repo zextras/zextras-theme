@@ -350,7 +350,7 @@ if (typeof ZmOrganizer !== 'undefined') {
         } else if (typeof arguments[0] === 'string') {
             imgDef = arguments[0].split(',');
         }
-        if (imgDef.length === 2) {
+        if (imgDef && imgDef.length === 2) {
             var imgName = imgDef[0];
             var imgColor = imgDef[1].replace('color=', '');
             if (imgName && svgImages[imgName]) {
