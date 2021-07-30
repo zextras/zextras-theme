@@ -138,11 +138,7 @@ hr{
 #zb__App__Tasks_left_icon{ display: block; @AppTasksIcon@ }
 #zb__App__Briefcase_left_icon{ display: block; @AppBriefcaseIcon@ }
 #zb__App__Options_left_icon{ display: block; @AppOptionsIcon@ }
-[id^="zb__App__tab_SR"][id$="_left_icon"]{
-	display: block;
-	@SearchIcon@
-	background-size: 16px !important;
-}
+
 [id^="zb__App__tab_COMPOSE"][id$="_left_icon"],
 [id^="zb__App__tab_CN"][id$="_left_icon"],
 [id^="zb__App__tab_APPT"][id$="_left_icon"],
@@ -151,8 +147,23 @@ hr{
 	@EditIcon@
 	background-size: 18px !important;
 }
-[id^="zb__App__tab_SR"][id$="_left_icon"] > div {
-	display: none !important;
+[id^="zb__App__tab_SR"][id$="_left_icon"]{
+	display: flex;
+	align-items: center;
+	width: 16px;
+	padding: 0 !important;
+}
+[id^="zb__App__tab_SR"] > .ImgPin {
+	@SearchIcon@
+	@BgImageProps@
+}
+.SearchTabButton.ZHover [id^="zb__App__tab_SR"] > .ImgPin,
+.SearchTabButton.ZActive [id^="zb__App__tab_SR"] > .ImgPin{
+	@ImgPin@
+}
+[id^="zb__App__tab_SR"] > .ImgUnpin {
+	@ImgUnpin@
+	@BgImageProps@
 }
 #skin_container_app_chooser{
 	width: 100% !important;
